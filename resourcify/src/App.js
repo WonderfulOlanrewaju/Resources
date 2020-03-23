@@ -1,14 +1,24 @@
 import React, { useEffect } from 'react';
 import './output.css';
 import { Form, Field, Formik } from 'formik';
+import axios from 'axios';
 
 function App() {
   const handleSubmit = (values, actions) => {
     console.log(values, actions);
   }
+
+  useEffect(() => {
+    axios.get('https://api.github.com/tevko')
+      .then(res => console.log(res))
+      .catch(err => {
+        console.log(err)
+      })
+  })
+
   return (
-    <div className="h-screen bg-gray-200 w-full py-20">
-      <div className='bg-white rounded-lg shadow-xl  sm:mx-auto my-32  mx-8 p-8 sm:w-1/3'>
+    <div className="h-screen bg-gray-400 w-full py-20">
+      <div className='bg-white rounded-lg shadow-2xl  sm:mx-auto my-32  mx-8 p-8 sm:w-1/3'>
         <Formik
           initialValues={{
             query: ''
@@ -26,9 +36,8 @@ function App() {
             </Form>
           )}
         </Formik>
-
         <div className='mt-10'>
-          <div>Resource here</div>
+          <div className='uppercase text-gray-700 font-semibold'>Resource here</div>
         </div>
       </div>
     </div>
