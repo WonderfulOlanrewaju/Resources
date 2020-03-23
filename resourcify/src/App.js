@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './output.css';
 import { Form, Field, Formik } from 'formik';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+const importAll = r => r.keys().map(r);
+const markdownFiles = importAll(require.context('./resources', false, /\.md$/))
+  .sort()
+  .reverse();
 
 function App() {
   const handleSubmit = (values, actions) => {
     console.log(values, actions);
   }
+  // let [md, setMd] = useState('')
 
-  useEffect(() => {
-    axios.get('https://api.github.com/tevko')
-      .then(res => console.log(res))
-      .catch(err => {
-        console.log(err)
-      })
-  })
+  // useEffect(() => {
+  //   async ()=>{
+  //     let mode = await Promise.all(markdownFiles.map(file=> fetch(file).then(res=>res.text())))
+  //     // .catch(err=>console.log(err)))
+  //   }
+  //   setMd(mode);
+  // })
 
   return (
     <div className="h-screen bg-gray-400 w-full py-20">
@@ -22,8 +28,7 @@ function App() {
         <Formik
           initialValues={{
             query: ''
-          }}
-          onSubmit={handleSubmit}
+          }} onSubmit={handleSubmit}
         >
           {(props) => (
             <Form className='my-4'>
